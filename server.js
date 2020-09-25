@@ -1,10 +1,10 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const db = require("./config/keys").mongoURI;
 const passport = require("passport");
+const path = require("path");
 
-// const path = require("path");
+const db = require("./config/keys").mongoURI;
 const users = require("./routes/api/users");
 const cars = require("./routes/api/cars");
 const images = require("./routes/api/images");
