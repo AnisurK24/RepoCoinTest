@@ -7,8 +7,6 @@ export const selectImagesForCar = (props, car) => {
   }
 
   Object.values(props).forEach((image) => {
-    // console.log(image)
-    // console.log(car)
     if (image.metadata.carId === car.id) {
       res.push(image);
     }
@@ -38,7 +36,6 @@ export const selectCarsFromUser = (props, user) => {
     return res;
   }
   Object.values(props).forEach((car) => {
-    console.log("car in selector", car)
     if ((car.user_id === user) && (car.deleted === false)) {
       res.push(car);
     }

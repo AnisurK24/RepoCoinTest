@@ -101,7 +101,7 @@ class CarShow extends React.Component {
     ) {
       if (this.props.currentUser.isAdmin) {
         if (this.props.car.deleted) {
-          dynamicButton = <button onClick={() => this.props.undeleteCar(this.props.car)}>Undelete Car</button>
+          dynamicButton = <button className="car-show-follow-btn" onClick={() => this.props.undeleteCar(this.props.car)}>Undelete Car</button>
         } else {
           if (this.props.car.forSale) {
             dynamicButton = (
