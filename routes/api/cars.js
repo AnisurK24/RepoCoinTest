@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// const keys = require("../../config/keys");
-// const mongoose = require("mongoose");
 const passport = require("passport");
 
 const Car = require("../../models/Car");
@@ -10,7 +8,6 @@ const validateCarInput = require("../../validation/cars");
 const { formatCars, formatCar } = require("../../util/responseHelpers");
 
 router.get("/", (req, res) => {
-  // console.log("request------------------------------------",req.body)
   Car.find()
     .sort({ date: -1 })
     .then((cars) => {
@@ -20,12 +17,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  // console.log("request------------------------------------", req.params);
   Car.findById(req.params.id)
     .then((car) => {
-      // if (car.deleted) {
-      //   res.status(404).json({ nocarfound: "This car has been deleted" });
-      // }
+
       res.json(formatCar(car))
       })
     .catch((err) =>
@@ -38,7 +32,6 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateCarInput(req.body);
-    // console.log("the errors", errors);
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -65,10 +58,8 @@ router.patch(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // console.log(req.params)
     Car.findById(req.params.id)
     .then((car) => {
-      // console.log(car)
         const { errors, isValid } = validateCarInput(req.body);
 
         if (!isValid) {
@@ -89,7 +80,6 @@ router.patch(
         car.deleted = req.body.deleted,
         car.forSale = req.body.forSale,
 
-        // console.log("car after-------------------------", car)
 
         car.save().then((car) => res.json(formatCar(car)));
       })

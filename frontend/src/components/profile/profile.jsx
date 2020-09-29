@@ -65,9 +65,6 @@ class Profile extends React.Component {
     });
 
     const userCars = selectCarsFromUser(this.props.cars, this.props.currentUser.id);
-    // const userCars = this.props.cars.filter((car) => {
-    //   return this.props.currentUser.id === car.user_id;
-    // });
     
     const userCarsDisplay = userCars.map((car) => {
       const carImage = selectImagesForCar(this.props.images, car);
@@ -78,7 +75,6 @@ class Profile extends React.Component {
         );
       }
 
-      // if (carLinks) {
         return (
           <li className="user-car-li" key={car.id}>
             <Link to={`/cars/${car.id}`}>
@@ -94,9 +90,6 @@ class Profile extends React.Component {
             </Link>
           </li>
         );
-      // } else {
-      //   return "were in the else";
-      // }
     });
 
     let myCar = ["profile-my-cars"];
@@ -119,15 +112,9 @@ class Profile extends React.Component {
         <div className="profile-container">
           <div className="profile-left-container">
             <div className="profile-left">
-              {/* <div className="default-image">
-                <img src={noImage} alt="default-profile-pic" />
-              </div> */}
               <div className="profile-btn-container">
                 <div className="profile-buttons">
                   <div className="profile-btn-top">
-                    {/* <button className="all-cars">
-                      <Link to="/cars">All cars!</Link>
-                    </button> */}
                   </div>
                   <br />
                   <div className="profile-btn-upper">

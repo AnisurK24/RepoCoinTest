@@ -37,19 +37,6 @@ conn.once("open", () => {
 
 //IMAGES ROUTES
 router.post("/", upload.single("image"), (req, res) => {
-  // const img = fs.readFileSync(req.file.path);
-  // const encode_image = img.toString('base64');
-  // // Define a JSONobject for the image attributes for saving to database
-  // const finalImg = {
-  //     contentType: req.file.mimetype,
-  //     image: Buffer.from(encode_image, 'base64')
-  // };
-
-  // gfs.collection("images").insert(finalImg, (err, result) => {
-  //     console.log(result)
-  //     if (err) return console.log(err)
-  //     console.log('saved to database')
-  // })
   res.redirect("/");
 });
 

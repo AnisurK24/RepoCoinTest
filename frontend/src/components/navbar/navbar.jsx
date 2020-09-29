@@ -38,34 +38,15 @@ class NavBar extends React.Component {
         )
       } else {
         return (
-        // <div className="nav-bar-logged-in">
-        //   <div className="nav-bar-form-logo-icon">
-        //     <Link to="/">
-        //       <img src={logo} alt="logo" />
-        //     </Link>
-        //   </div>
-        //   <div>
-        //     <Search />
-        //   </div>
           <div>
             <Link to={"/profile"}><button className="navbutton"><p>Profile</p></button></Link>&nbsp;&nbsp;
             <button className="navbutton" onClick={this.logoutUser}><p>Log Out</p></button>
           </div>
-        // </div>
         );
       }
     } else {
       return (
-        // <div className="nav-bar-logged-out">
-        //   <div className="nav-bar-form-logo-icon">
-        //     <Link to="/">
-        //       <img src={logo} alt="logo" />
-        //     </Link>
-        //   </div>
-
-        //   <Search />
           <div>
-            {/* <Link to={"/cars"}><button className="navbutton"><p>All Cars</p></button></Link>&nbsp;&nbsp; */}
             <button
               className="navbutton"
               onClick={() => this.props.openModal("signup")}
@@ -79,7 +60,6 @@ class NavBar extends React.Component {
               <p>Log In</p>
             </button>
            </div>
-        // </div>
       );
     }
   }
@@ -115,8 +95,6 @@ const mapStateToProps = (state) => {
       loggedIn: state.session.isAuthenticated,
     }
   }
-  // console.log(state)
-  // isAdmin: state.session.user.isAdmin
 };
 
 const mapDispatchToProps = (dispatch) => ({

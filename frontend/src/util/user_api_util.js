@@ -12,10 +12,6 @@ export const editUser = (user) => {
   return axios.patch(`/api/users/${user.id}`);
 };
 
-// export const createUser = (formData) => {
-//   return axios.post(`/api/users`);
-// };
-
 export const addFollowed = (id) => {
   return axios.post(`/api/users/${id}/addFollowedCar`);
 };

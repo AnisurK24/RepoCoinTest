@@ -40,7 +40,6 @@ class CarIndexItem extends React.Component {
                 <li>Price: ${this.props.car.price}</li>
               </div>
               <div className="buy-container">
-                {/* <button></button> */}
               </div>
             </div>
           </div>

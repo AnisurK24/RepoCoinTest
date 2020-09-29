@@ -17,11 +17,6 @@ export const receiveOneCar = (car) => ({
   car,
 });
 
-// export const removeOneCar = (res) => ({
-//   type: REMOVE_ONE_CAR,
-//   res,
-// });
-
 export const receiveCarErrors = (err) => ({
   type: RECEIVE_CAR_ERRORS,
   err,

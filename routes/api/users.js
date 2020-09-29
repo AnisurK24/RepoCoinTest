@@ -78,7 +78,6 @@ router.post("/login", (req, res) => {
   }
 
   const username = req.body.username;
-  // const email = req.body.email;
   const password = req.body.password;
 
   User.findOne({ username }).then((user) => {
@@ -121,7 +120,6 @@ router.get("/:id", (req, res) => {
     .populate("followedCars")
     .exec()
     .then((car) => {
-      // console.log(car);
       res.json(car);
     })
     .catch((err) =>
@@ -136,14 +134,12 @@ router.post(
   (req, res) => {
     const user = req.user.id;
     const carId = req.params.id;
-    // console.log(carId)
     Car.findById(carId)
       .then((car) => {
         User.findById(user)
           .then((user) => {
             user.followedCars.push(carId);
             user.save();
-            // console.log(user)
             res.json(user);
           })
           .catch((err) =>

@@ -15,7 +15,6 @@ class CarEditForm extends React.Component {
   }
 
   componentDidMount() {
-    // console.log("this is the car", this.props.car);
     this.props.fetchCar(this.props.match.params.carId);
   }
 
@@ -149,7 +148,6 @@ class CarEditForm extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("these are own props", ownProps.match.params.carId)
   return {
     car: state.entities.cars[ownProps.match.params.carId],
   };

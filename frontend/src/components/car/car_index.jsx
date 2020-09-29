@@ -24,14 +24,12 @@ class CarIndex extends React.Component {
     let userCars;
     let {cars, userId} = this.props
 
-      // console.log("pathname", this.props);
     if (this.props.location.pathname === "/profile/cars") {
       carTitle = "Your cars";
       userCars = selectCarsFromUser(cars, userId);
     } else if (this.props.location.pathname === "/deleted/cars") {
       carTitle = "Deleted cars";
       userCars = selectDeletedCars(cars);
-      // console.log("deleted cars", userCars)
     } else if (this.props.isAdmin) {
       carTitle = "Admin: All Cars"
       userCars = cars
@@ -47,7 +45,6 @@ class CarIndex extends React.Component {
         </div>
       );
     } else {
-      // console.log("user cars", userCars)
       allCars = userCars.map((car) => {
         const images = selectImagesForCar(this.props.images, car);
 

@@ -19,10 +19,6 @@
     margin-top: 20%;
 }
 
-// .default-image {
-
-// }
-
 .profile-btn-container {
     margin-top: 35%;
 }
@@ -69,18 +65,6 @@
 .user-car-img-container {
     align-items: flex-start
 }
-
-/* .profile-my-cars {
-    display: none;
-} */
-
-/* .profile-followed-cars {
-    display: none;
-}
-
-.profile-posts {
-    display: none;
-} */
 
 .profile-my-cars.active {
     display: none;
@@ -160,10 +144,6 @@
     text-decoration: none;
 }
 
-/* .profile-btn-container a:hover {
-    color: teal;
-    text-decoration: none;
-} */
 
 .car-idx:hover, .new-car:hover, .car-details:hover, .my-cars:hover, .my-followed:hover {
     background-color: #FFFFFF;

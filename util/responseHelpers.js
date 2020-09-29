@@ -42,7 +42,6 @@ const formatCar = (car) => {
     price: car.price,
     date: car.date,
   };
-    // console.log("this is the data", carData);
     return carData;
 };
 
