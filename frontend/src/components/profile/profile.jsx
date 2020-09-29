@@ -8,6 +8,7 @@ import { fetchAllImages } from "../../actions/image_actions";
 import {
   selectImagesForCar,
   selectOneImagesForCar,
+  selectCarsFromUser,
 } from "../../reducers/selectors.js";
 
 import "./profile.scss";
@@ -63,13 +64,21 @@ class Profile extends React.Component {
       }
     });
 
-    const userCars = this.props.cars.filter((car) => {
-      return this.props.currentUser.id === car.user_id;
-    });
-
+    const userCars = selectCarsFromUser(this.props.cars, this.props.currentUser.id);
+    // const userCars = this.props.cars.filter((car) => {
+    //   return this.props.currentUser.id === car.user_id;
+    // });
+    
     const userCarsDisplay = userCars.map((car) => {
       const carImage = selectImagesForCar(this.props.images, car);
-      if (carImage[0]) {
+      let carLinks = noImage
+      if (carImage.length) {
+        carLinks = (
+          `/api/images/${carImage[0].filename}`
+        );
+      }
+
+      // if (carLinks) {
         return (
           <li className="user-car-li" key={car.id}>
             <Link to={`/cars/${car.id}`}>
@@ -79,15 +88,15 @@ class Profile extends React.Component {
             <Link to={`/cars/${car.id}`}>
               <img
                 className="user-car-img"
-                src={`/api/images/${carImage[0].filename}`}
+                src={carLinks}
                 alt={car.name}
               />
             </Link>
           </li>
         );
-      } else {
-        return "";
-      }
+      // } else {
+      //   return "were in the else";
+      // }
     });
 
     let myCar = ["profile-my-cars"];
@@ -110,9 +119,9 @@ class Profile extends React.Component {
         <div className="profile-container">
           <div className="profile-left-container">
             <div className="profile-left">
-              <div className="default-image">
+              {/* <div className="default-image">
                 <img src={noImage} alt="default-profile-pic" />
-              </div>
+              </div> */}
               <div className="profile-btn-container">
                 <div className="profile-buttons">
                   <div className="profile-btn-top">

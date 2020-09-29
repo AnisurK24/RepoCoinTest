@@ -2,6 +2,8 @@ const formatCars = (carsArr) => {
   const cars = {};
   carsArr.forEach((car) => {
     const carData = {
+      deleted: car.deleted,
+      forSale: car.forSale,
       id: car._id,
       user_id: car.user,
       title: car.title,
@@ -15,8 +17,6 @@ const formatCars = (carsArr) => {
       location: car.location,
       price: car.price,
       date: car.date,
-      deleted: car.deleted,
-      forSale: car.forSale,
     };
       cars[car.id] = carData;
   });
@@ -26,6 +26,8 @@ const formatCars = (carsArr) => {
 
 const formatCar = (car) => {
   const carData = {
+    deleted: car.deleted,
+    forSale: car.forSale,
     id: car._id,
     user_id: car.user,
     title: car.title,
@@ -39,9 +41,8 @@ const formatCar = (car) => {
     location: car.location,
     price: car.price,
     date: car.date,
-    deleted: car.deleted,
-    forSale: car.forSale,
   };
+    // console.log("this is the data", carData);
     return carData;
 };
 

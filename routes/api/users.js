@@ -131,7 +131,7 @@ router.get("/:id", (req, res) => {
 
 // ADD FOLLOWED CAR
 router.post(
-  "/:id/followedCars",
+  "/:id/addFollowedCar",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const user = req.user.id;
@@ -156,16 +156,18 @@ router.post(
   }
 );
 
-// REMOVe FOLLOWED CAR
-// router.post('/:id/unfollowCar', passport.authenticate('jwt', { session: false }), (req, res) => {
+// REMOVE FOLLOWED CAR
+// router.patch('/:id/removeFollowedCar', passport.authenticate('jwt', { session: false }), (req, res) => {
 //   const user = req.user.id;
 //   const carId = req.body.id
 //   console.log(carId)
 //   Car.findById(carId)
 //   .then(car => {
+//     console.log("this is the car", car)
 //     User.findById(user)
 //     .then(user => {
-//       user.followedCars.filter((followedCar) => followedCar.id !== car.id
+//       user.followedCars.filter((followedCar) => (followedCar.id !== car.id))
+//       console.log("this is user after unfollow", user)
 //       user.save()
 //       res.json(user)
 //     })
@@ -176,15 +178,6 @@ router.post(
 //   .catch(err =>
 //     res.status(404).json({nocarfound: 'No car found with that ID'})
 //     );
-// })
-
-// this is the private auth route
-// router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-//     res.json({
-//         id: req.user.id,
-//         username: req.user.username,
-//         email: req.user.email
-//     });
 // })
 
 module.exports = router;

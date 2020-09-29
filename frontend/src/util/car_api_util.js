@@ -20,6 +20,22 @@ export const deleteCar = (car) => {
   return axios.patch(`/api/cars/delete/${car.id}`, car);
 };
 
+export const undeleteCar = (car) => {
+  return axios.patch(`/api/cars/undelete/${car.id}`, car);
+};
+
+export const buyCar = (car) => {
+  return axios.patch(`/api/cars/buy/${car.id}`, car);
+};
+
+export const addForSale = (car) => {
+  return axios.patch(`/api/cars/addforsale/${car.id}`, car);
+};
+
+export const removeForSale = (car) => {
+  return axios.patch(`/api/cars/removeforsale/${car.id}`, car);
+};
+
 // SEARCH AXIOS REQS
 
 export const getCarsByMake = (make) => {

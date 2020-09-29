@@ -6,6 +6,7 @@ import {
 
 const CarsReducer = (state = {}, action) => {
   Object.freeze(state);
+  // console.log("this is the action", action)
 
   switch (action.type) {
     case RECEIVE_ALL_CARS:

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import { fetchOneCar, deleteCar } from '../../actions/car_actions';
-import { fetchUsers, createFollowed } from '../../actions/user_actions';
+import { fetchOneCar, deleteCar, undeleteCar, addForSale, removeForSale, buyCar } from '../../actions/car_actions';
+import { fetchUsers, createFollowed, deleteFollowed } from '../../actions/user_actions';
 import { fetchAllImages, createImage } from '../../actions/image_actions';
 import { selectImagesForCar } from '../../reducers/selectors';
 
@@ -11,11 +11,8 @@ import "./car-show.scss";
 class CarShow extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = this.props.car;
 
-    // this.handleAction = this.handleAction.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
-    // this.deleteCar = this.deleteCar.bind(this)
   }
 
   componentDidMount() {
@@ -37,26 +34,6 @@ class CarShow extends React.Component {
     imageObj.append("carId", this.props.car.id);
     this.props.createImage(imageObj);
   }
-
-  // handleAction(field) {
-    // e.preventDefault();
-    // let deletedCar = this.state;
-    // this.state.deleted = true;
-    //       this.setState({
-    //         [field]: true,
-    //       });
-    // console.log("State in delete", this.state);
-    // this.props.updateCar(this.state.car.deleted = true );
-    // this.props.history.push("/profile/cars");
-  // }
-
-  // handleDelete(field) {
-  //   return (e) => {
-  //     this.setState({
-  //       deleted: !this.state.deleted,
-  //     });
-  //   };
-  // }
 
   render() {
     if (!this.props.car) {
@@ -83,16 +60,35 @@ class CarShow extends React.Component {
       this.props.currentUser &&
       this.props.car.user_id !== this.props.currentUserId
     ) {
-      followButton = (
-        <div>
-          <button
-            className="car-show-follow-btn"
-            onClick={() => this.props.createFollow(this.props.car.id)}
-          >
-            <p>Follow Car</p>
-          </button>
-        </div>
-      );
+      // if () {
+        followButton = (
+          <div>
+            <button
+              className="car-show-follow-btn"
+              onClick={() => this.props.buyCar(this.props.car)}
+            >
+              Buy Car
+            </button>
+            <button
+              className="car-show-follow-btn"
+              onClick={() => this.props.createFollow(this.props.car.id)}
+            >
+              <p>Follow Car</p>
+            </button>
+          </div>
+        );
+      // } else {
+        // followButton = (
+        //   <div>
+        //     <button
+        //       className="car-show-follow-btn"
+        //       onClick={() => this.props.deleteFollow(this.props.car.id)}
+        //     >
+        //       <p>Unfollow Car</p>
+        //     </button>
+        //   </div>
+        // );
+      // }
     }
 
     let carLink;
@@ -104,14 +100,31 @@ class CarShow extends React.Component {
       this.props.currentUser.isAdmin
     ) {
       if (this.props.currentUser.isAdmin) {
-        console.log("the car", this.props.car)
-        dynamicButton = <button onClick={() => this.props.deleteCar(this.props.car)}>Delete</button>;
-        // } else if (this.props.car.forSale) {
-        //   dynamicButton = <button onClick={}>Add to Marketplace</button>;
-        // } else if (!this.props.car.forSale) {
-        //   dynamicButton = (
-        //     <button onClick={}>Remove from Marketplace</button>
-        //   );
+        if (this.props.car.deleted) {
+          dynamicButton = <button onClick={() => this.props.undeleteCar(this.props.car)}>Undelete Car</button>
+        } else {
+          if (this.props.car.forSale) {
+            dynamicButton = (
+              <div>
+                <button className="car-show-follow-btn" onClick={() => this.props.deleteCar(this.props.car)}>Delete Car</button>
+                <button className="car-show-follow-btn" onClick={() => this.props.removeForSale(this.props.car)}>Remove From Marketplace</button>
+              </div>
+            );
+          } else {
+            dynamicButton = (
+            <div>
+              <button className="car-show-follow-btn" onClick={() => this.props.deleteCar(this.props.car)}>Delete Car</button>
+              <button className="car-show-follow-btn" onClick={() => this.props.addForSale(this.props.car)}>Add To Marketplace</button>
+            </div>
+            );
+          }
+        }
+      } else {
+        if (!this.props.car.forSale) {
+          dynamicButton = <button className="car-show-follow-btn" onClick={() => this.props.addForSale(this.props.car)}>Add To Marketplace</button>;
+        } else {
+          dynamicButton = <button className="car-show-follow-btn" onClick={() => this.props.removeForSale(this.props.car)}>Remove From Marketplace</button>;
+        }
       }
       carLink = (
         <div className="car-show-edit-links">
@@ -120,14 +133,14 @@ class CarShow extends React.Component {
           </div>
           <div className="car-show-edit-links-1">
             Edit this car's profile:
-            <button>
+            <button className="car-show-follow-btn">
               <Link to={`${this.props.car.id}/edit`}>Edit</Link>
             </button>
             {dynamicButton}
           </div>
           <div className="car-show-edit-links-2">
             <div>Upload a photo:</div>
-            <input type="file" name="image" onChange={this.uploadImage} />
+            <input className="img-input-btn" type="file" name="image" onChange={this.uploadImage} />
           </div>
         </div>
       );
@@ -212,9 +225,14 @@ const mapDispatchToProps = (dispatch) => {
     fetchCar: (id) => dispatch(fetchOneCar(id)),
     fetchUsers: () => dispatch(fetchUsers()),
     deleteCar: (car) => dispatch(deleteCar(car)),
+    undeleteCar: (car) => dispatch(undeleteCar(car)),
+    buyCar: (car) => dispatch(buyCar(car)),
+    addForSale: (car) => dispatch(addForSale(car)),
+    removeForSale: (car) => dispatch(removeForSale(car)),
     fetchImages: () => dispatch(fetchAllImages()),
     createImage: (imgObj) => dispatch(createImage(imgObj)),
     createFollow: (id) => dispatch(createFollowed(id)),
+    // deleteFollow: (id) => dispatch(deleteFollowed(id)),
   };
 };
 

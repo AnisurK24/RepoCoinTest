@@ -15,7 +15,7 @@ class CarEditForm extends React.Component {
   }
 
   componentDidMount() {
-    console.log("this is the car", this.props.car);
+    // console.log("this is the car", this.props.car);
     this.props.fetchCar(this.props.match.params.carId);
   }
 
@@ -132,7 +132,7 @@ class CarEditForm extends React.Component {
               <div>
                 <h1>Price:</h1>
                 <input
-                  type="number"
+                  type="text"
                   value={this.state.price}
                   onChange={this.update("price")}
                   className="input-field"

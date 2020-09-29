@@ -5,7 +5,6 @@ import { fetchAllImages } from "../../actions/image_actions";
 import CarIndexItem from "./car_index_item";
 import {
   selectImagesForCar,
-  selectOneImagesForCar,
   selectCarsFromUser,
   selectDeletedCars,
   selectCarsForUser,
@@ -25,14 +24,17 @@ class CarIndex extends React.Component {
     let userCars;
     let {cars, userId} = this.props
 
-      console.log("pathname", this.props);
+      // console.log("pathname", this.props);
     if (this.props.location.pathname === "/profile/cars") {
       carTitle = "Your cars";
       userCars = selectCarsFromUser(cars, userId);
     } else if (this.props.location.pathname === "/deleted/cars") {
       carTitle = "Deleted cars";
       userCars = selectDeletedCars(cars);
-      console.log("deleted cars", userCars)
+      // console.log("deleted cars", userCars)
+    } else if (this.props.isAdmin) {
+      carTitle = "Admin: All Cars"
+      userCars = cars
     } else {
       carTitle = "Cars for Sale";
       userCars = selectCarsForUser(cars, userId);

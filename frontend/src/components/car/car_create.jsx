@@ -14,8 +14,8 @@ class CarCreateForm extends React.Component {
       model: "",
       year: "",
       color: "",
-      seats: 2,
-      doors: 2,
+      seats: "2",
+      doors: "2",
       transmission: "Automatic",
       location: "Chicago",
       price: "",
@@ -78,7 +78,7 @@ class CarCreateForm extends React.Component {
               <div>
                 <h1>Year:</h1>
                 <input
-                  type="number"
+                  type="text"
                   value={this.state.year}
                   onChange={this.update("year")}
                 />
@@ -97,7 +97,7 @@ class CarCreateForm extends React.Component {
               <div>
                 <h1>Seats:</h1>
                 <input
-                  type="number"
+                  type="text"
                   value={this.state.seats}
                   onChange={this.update("seats")}
                   className="input-field"
@@ -107,7 +107,7 @@ class CarCreateForm extends React.Component {
               <div>
                 <h1>Doors:</h1>
                 <input
-                  type="number"
+                  type="text"
                   value={this.state.doors}
                   onChange={this.update("doors")}
                   className="input-field"
@@ -149,7 +149,7 @@ class CarCreateForm extends React.Component {
               <div>
                 <h1>Price:</h1>
                 <input
-                  type="number"
+                  type="text"
                   value={this.state.price}
                   onChange={this.update("price")}
                   className="input-field"

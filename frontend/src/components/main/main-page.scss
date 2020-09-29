@@ -1,0 +1,26 @@
+.api-docs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    // width: 400px;
+}
+
+.api-group {
+    display: flex;
+    flex-direction: row;
+    width: 300px;
+}
+
+.api-docs h1, h3 {
+    font-size: x-large;
+    font-weight: 700;
+}
+
+.api-title {
+    margin-right: auto;
+}
+
+.api-route {
+
+}

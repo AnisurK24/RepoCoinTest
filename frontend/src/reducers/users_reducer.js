@@ -12,7 +12,11 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ALL_USERS:
       return Object.assign({}, action.users.data);
     case ADD_FOLLOWED_CAR:
-      return Object.assign({}, state) 
+      return Object.assign({}, state)
+    // case REMOVE_FOLLOWED_CAR:
+    //   let newState = Object.assign({}, state);
+    //   delete newState[action.res.data.id];
+    //   return newState;
     default:
       return state;
   }

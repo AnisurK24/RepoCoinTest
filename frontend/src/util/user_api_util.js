@@ -10,14 +10,16 @@ export const getUser = (id) => {
 
 export const editUser = (user) => {
   return axios.patch(`/api/users/${user.id}`);
-  // data: { user }
 };
 
-export const createUser = (formData) => {
-  return axios.post(`/api/users`);
-  // data: formData
-};
+// export const createUser = (formData) => {
+//   return axios.post(`/api/users`);
+// };
 
 export const addFollowed = (id) => {
-  return axios.post(`/api/users/${id}/followedCars`);
+  return axios.post(`/api/users/${id}/addFollowedCar`);
 };
+
+// export const removeFollowed = (id) => {
+//   return axios.patch(`/api/users/${id}/removeFollowedCar`);
+// };

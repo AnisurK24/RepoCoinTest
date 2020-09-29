@@ -1,12 +1,15 @@
 
 .car-show-slideshow-container {
-	position: relative;
-    margin: 0 auto;
-    width: 900px;
-    background: #fff;
-	height: 300px;
-	overflow: hidden;
-	margin-bottom: 15px;	
+    align-self: center;
+}
+
+.car-show-slideshow-container img {
+    width: 270px;
+    height: 250px;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid whitesmoke;
+    object-fit: cover;
 }
 .image-slide img {
 	height: 300px;
@@ -50,7 +53,12 @@
 	color: white;
 	font-weight: 700;
 	font-size: 16px;
-	cursor:pointer;
+    cursor:pointer;
+}
+
+.car-show-follow-btn a:visited {
+    text-decoration: none;
+    color: white;
 }
 
 .car-show-follow-btn:hover {
@@ -106,6 +114,13 @@
     display: flex;
     justify-content: center;
 }
-.car-show-edit-links-2 input {
-    width: 160px;
+.img-input-btn {
+    background: teal;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 10px 20px; 
+	color: white;
+	font-weight: 700;
+	font-size: 16px;
+    cursor:pointer;
 }

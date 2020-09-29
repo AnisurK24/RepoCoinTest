@@ -19,7 +19,7 @@ const CarSchema = new Schema({
     required: true,
   },
   year: {
-    type: Number,
+    type: String,
     required: true,
   },
   color: {
@@ -27,11 +27,11 @@ const CarSchema = new Schema({
     required: true,
   },
   seats: {
-    type: Number,
+    type: String,
     required: true,
   },
   doors: {
-    type: Number,
+    type: String,
     required: true,
   },
   transmission: {

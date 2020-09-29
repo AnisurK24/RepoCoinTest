@@ -1,7 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { fetchAllImages } from "../../actions/image_actions";
 import {
+  fetchCars,
   fetchCarsByMake,
   fetchCarsByModel,
   fetchCarsByYear,
@@ -26,9 +28,10 @@ class Search extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // if (this.state.searchValue.length === 0) {
-    //   this.props.history.push("/cars");
-    // } else {
+    if (this.state.searchValue.length === 0) {
+      this.props.fetchImages();
+      this.props.fetchCars();
+    } else {
       if (this.state.searchType === "make") {
         this.props.searchByMake(capitalize(this.state.searchValue));
       } else if (this.state.searchType === "model") {
@@ -40,7 +43,7 @@ class Search extends React.Component {
       } else if (this.state.searchType === "color") {
         this.props.searchByColor(capitalize(this.state.searchValue));
       }
-    // }
+    }
     
     this.props.history.push("/cars");
   }
@@ -95,6 +98,8 @@ const mapDispatchToProps = (dispatch) => {
     searchByYear: (year) => dispatch(fetchCarsByYear(year)),
     searchByLocation: (location) => dispatch(fetchCarsByLocation(location)),
     searchByColor: (color) => dispatch(fetchCarsByColor(color)),
+    fetchCars: () => dispatch(fetchCars()),
+    fetchImages: () => dispatch(fetchAllImages()),
   };
 };
 

@@ -60,6 +60,30 @@ export const deleteCar = (car) => (dispatch) => {
     .catch((err) => dispatch(receiveCarErrors(err)));
 };
 
+export const undeleteCar = (car) => (dispatch) => {
+  return CarApiUtil.undeleteCar(car)
+    .then((car) => dispatch(receiveOneCar(car)))
+    .catch((err) => dispatch(receiveCarErrors(err)));
+};
+
+export const buyCar = (car) => (dispatch) => {
+  return CarApiUtil.buyCar(car)
+    .then((car) => dispatch(receiveOneCar(car)))
+    .catch((err) => dispatch(receiveCarErrors(err)));
+};
+
+export const addForSale = (car) => (dispatch) => {
+  return CarApiUtil.addForSale(car)
+    .then((car) => dispatch(receiveOneCar(car)))
+    .catch((err) => dispatch(receiveCarErrors(err)));
+};
+
+export const removeForSale = (car) => (dispatch) => {
+  return CarApiUtil.removeForSale(car)
+    .then((car) => dispatch(receiveOneCar(car)))
+    .catch((err) => dispatch(receiveCarErrors(err)));
+};
+
 // SEARCH ACTIONS
 
 export const fetchCarsByMake = (make) => (dispatch) => (

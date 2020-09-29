@@ -38,7 +38,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateCarInput(req.body);
-
+    // console.log("the errors", errors);
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -57,7 +57,7 @@ router.post(
       price: req.body.price,
     });
 
-    newCar.save().then((car) => res.json(formatCar(car))).catch(error => console.log(error));
+    newCar.save().then((car) => res.json(formatCar(car)))
   }
 );
 
@@ -65,17 +65,17 @@ router.patch(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req.params)
+    // console.log(req.params)
     Car.findById(req.params.id)
     .then((car) => {
-      console.log(car)
+      // console.log(car)
         const { errors, isValid } = validateCarInput(req.body);
 
         if (!isValid) {
           return res.status(400).json(errors);
         }
         
-        car.user = req.body.user,
+        car.user = req.body.user_id,
         car.title = req.body.title;
         car.make = req.body.make;
         car.model = req.body.model;
@@ -89,11 +89,14 @@ router.patch(
         car.deleted = req.body.deleted,
         car.forSale = req.body.forSale,
 
+        // console.log("car after-------------------------", car)
+
         car.save().then((car) => res.json(formatCar(car)));
       })
-      .catch((err) =>
+      .catch((err) => {
+        console.log("the errors", err)
         res.status(404).json({ nocarfound: "No car found with that ID" })
-      );
+      });
   }
 );
 
@@ -109,21 +112,100 @@ router.patch(
           return res.status(400).json(errors);
         }
 
-        car.user = req.body.user,
-        car.title = req.body.title;
-        car.make = req.body.make;
-        car.model = req.body.model;
-        car.year = req.body.year;
-        car.color = req.body.color;
-        car.seats = req.body.seats;
-        car.doors = req.body.doors;
-        car.transmission = req.body.transmission;
-        car.location = req.body.location;
-        car.price = req.body.price,
         car.deleted = true,
-        car.forSale = req.body.forSale,
+        car.forSale = false,
 
         car.save().then((car) => res.json(formatCar(car)));
+      })
+      .catch((err) =>
+        res.status(404).json({ nocarfound: "No car found with that ID" })
+      );
+  }
+);
+
+router.patch(
+  "/undelete/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Car.findById(req.params.id)
+      .then((car) => {
+        const { errors, isValid } = validateCarInput(req.body);
+
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+
+        car.deleted = false,
+
+          car.save().then((car) => res.json(formatCar(car)));
+      })
+      .catch((err) =>
+        res.status(404).json({ nocarfound: "No car found with that ID" })
+      );
+  }
+);
+
+router.patch(
+  "/buy/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Car.findById(req.params.id)
+      .then((car) => {
+        const { errors, isValid } = validateCarInput(req.body);
+
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+
+        car.user = req.user._id
+        car.forSale = false;
+
+          car.save().then((car) => res.json(formatCar(car)));
+      })
+      .catch((err) =>
+        res.status(404).json({ nocarfound: "No car found with that ID" })
+      );
+  }
+);
+
+router.patch(
+  "/addforsale/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Car.findById(req.params.id)
+      .then((car) => {
+        const { errors, isValid } = validateCarInput(req.body);
+        console.log("this is the car", car)
+        console.log("this is the params", req.user)
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+        
+        car.forSale = true,
+
+          car.save().then((car) => res.json(formatCar(car)));
+      })
+      .catch((err) =>
+        res.status(404).json({ nocarfound: "No car found with that ID" })
+      );
+  }
+);
+
+router.patch(
+  "/removeforsale/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Car.findById(req.params.id)
+      .then((car) => {
+        const { errors, isValid } = validateCarInput(req.body);
+
+        if (!isValid) {
+          return res.status(400).json(errors);
+        }
+        
+        car.forSale = false,
+
+          car.save().then((car) => res.json(formatCar(car)));
       })
       .catch((err) =>
         res.status(404).json({ nocarfound: "No car found with that ID" })
