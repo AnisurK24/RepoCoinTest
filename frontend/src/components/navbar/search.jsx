@@ -26,17 +26,21 @@ class Search extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.searchType === "make") {
-      this.props.searchByMake(capitalize(this.state.searchValue));
-    } else if (this.state.searchType === "model") {
-      this.props.searchByModel(capitalize(this.state.searchValue));
-    } else if (this.state.searchType === "year") {
-      this.props.searchByYear(this.state.searchValue);
-    } else if (this.state.searchType === "location") {
-      this.props.searchByLocation(capitalize(this.state.searchValue));
-    } else if (this.state.searchType === "color") {
-      this.props.searchByColor(capitalize(this.state.searchValue));
-    }
+    // if (this.state.searchValue.length === 0) {
+    //   this.props.history.push("/cars");
+    // } else {
+      if (this.state.searchType === "make") {
+        this.props.searchByMake(capitalize(this.state.searchValue));
+      } else if (this.state.searchType === "model") {
+        this.props.searchByModel(capitalize(this.state.searchValue));
+      } else if (this.state.searchType === "year") {
+        this.props.searchByYear(this.state.searchValue);
+      } else if (this.state.searchType === "location") {
+        this.props.searchByLocation(capitalize(this.state.searchValue));
+      } else if (this.state.searchType === "color") {
+        this.props.searchByColor(capitalize(this.state.searchValue));
+      }
+    // }
     
     this.props.history.push("/cars");
   }

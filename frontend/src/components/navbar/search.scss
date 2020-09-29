@@ -6,6 +6,7 @@
 .search-form {
     display: flex;
     flex-direction: row;
+    font-family: 'Lato','Verdana','Helvetica',sans-serif;
 }
 .search-form-textbox {
     width: 480px;
@@ -13,9 +14,11 @@
     box-sizing: border-box;
     font-size: 18px;
     padding: 11px;
-    border-radius: 10px 10px 10px 10px; 
+    border-radius: 10px 10px 10px 10px;
+    margin: 2px;
 }
 .search-form-textbox::placeholder {
+    font-family: 'Lato','Verdana','Helvetica',sans-serif;
 }
 
 .search-form-dropdown {
@@ -25,6 +28,8 @@
     padding: 11px;
     border-radius: 10px 10px 10px 10px; 
     font-weight: 700;
+    font-family: 'Lato','Verdana','Helvetica',sans-serif;
+    margin: 2px;
 }
 .search-form-submit {
     height: 45px;
@@ -39,4 +44,5 @@
     background-repeat: no-repeat;
     background-size: 60%;
     background-position: center;
+    margin: 2px;
 }

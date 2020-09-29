@@ -5,18 +5,17 @@ import { fetchOneCar, deleteCar } from '../../actions/car_actions';
 import { fetchUsers, createFollowed } from '../../actions/user_actions';
 import { fetchAllImages, createImage } from '../../actions/image_actions';
 import { selectImagesForCar } from '../../reducers/selectors';
-// import CarSlider from "./car_slider";
 
-// import "./assets/car-show.scss";
+import "./car-show.scss";
 
 class CarShow extends React.Component {
   constructor(props) {
-    super();
+    super(props);
+    // this.state = this.props.car;
 
-    // this.state = {
-    // };
-    this.handleDelete = this.handleDelete.bind(this);
+    // this.handleAction = this.handleAction.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
+    // this.deleteCar = this.deleteCar.bind(this)
   }
 
   componentDidMount() {
@@ -26,7 +25,6 @@ class CarShow extends React.Component {
   }
 
   componentDidUpdate(nextProps) {
-
     if (this.props.images.length !== nextProps.images.length) {
       this.props.fetchImages();
     }
@@ -40,11 +38,25 @@ class CarShow extends React.Component {
     this.props.createImage(imageObj);
   }
 
-  handleDelete(e) {
-    e.preventDefault();
-    this.props.deleteCar(this.props.car.id);
-    this.props.history.push("/profile/cars");
-  }
+  // handleAction(field) {
+    // e.preventDefault();
+    // let deletedCar = this.state;
+    // this.state.deleted = true;
+    //       this.setState({
+    //         [field]: true,
+    //       });
+    // console.log("State in delete", this.state);
+    // this.props.updateCar(this.state.car.deleted = true );
+    // this.props.history.push("/profile/cars");
+  // }
+
+  // handleDelete(field) {
+  //   return (e) => {
+  //     this.setState({
+  //       deleted: !this.state.deleted,
+  //     });
+  //   };
+  // }
 
   render() {
     if (!this.props.car) {
@@ -67,7 +79,10 @@ class CarShow extends React.Component {
     }
 
     let followButton = "";
-    if (this.props.currentUser) {
+    if (
+      this.props.currentUser &&
+      this.props.car.user_id !== this.props.currentUserId
+    ) {
       followButton = (
         <div>
           <button
@@ -81,22 +96,34 @@ class CarShow extends React.Component {
     }
 
     let carLink;
+    let dynamicButton;
     if (
-      owner &&
-      this.props.currentUserId &&
-      owner._id === this.props.currentUserId
+      (owner &&
+        this.props.currentUserId &&
+        owner._id === this.props.currentUserId) ||
+      this.props.currentUser.isAdmin
     ) {
+      if (this.props.currentUser.isAdmin) {
+        console.log("the car", this.props.car)
+        dynamicButton = <button onClick={() => this.props.deleteCar(this.props.car)}>Delete</button>;
+        // } else if (this.props.car.forSale) {
+        //   dynamicButton = <button onClick={}>Add to Marketplace</button>;
+        // } else if (!this.props.car.forSale) {
+        //   dynamicButton = (
+        //     <button onClick={}>Remove from Marketplace</button>
+        //   );
+      }
       carLink = (
         <div className="car-show-edit-links">
           <div className="car-show-edit-title">
-            <p>You are {this.props.car.title} owner</p>
+            <p>What changes would you like to make to this car.</p>
           </div>
           <div className="car-show-edit-links-1">
             Edit this car's profile:
             <button>
               <Link to={`${this.props.car.id}/edit`}>Edit</Link>
             </button>
-            <button onClick={this.handleDelete}>Delete</button>
+            {dynamicButton}
           </div>
           <div className="car-show-edit-links-2">
             <div>Upload a photo:</div>
@@ -109,7 +136,6 @@ class CarShow extends React.Component {
     }
 
     const carImgUrls = [];
-    // eslint-disable-next-line
     this.props.images.map((image) => {
       const url = `/api/images/${image.filename}`;
       carImgUrls.push(url);
@@ -119,8 +145,7 @@ class CarShow extends React.Component {
       <div>
         <div className="car-show-container">
           <div className="car-show-slideshow-container">
-            <img src={carImgUrls[0]} alt=""/>
-            {/* <CarSlider imgUrls={carImgUrls} /> */}
+            <img src={carImgUrls[0]} alt="" />
           </div>
 
           <div className="car-show-details">
@@ -146,9 +171,7 @@ class CarShow extends React.Component {
             </div>
           </div>
 
-          <div className="car-show-edit-section">
-            {carLink}
-          </div>
+          <div className="car-show-edit-section">{carLink}</div>
         </div>
       </div>
     );
@@ -188,7 +211,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchCar: (id) => dispatch(fetchOneCar(id)),
     fetchUsers: () => dispatch(fetchUsers()),
-    deleteCar: (id) => dispatch(deleteCar(id)),
+    deleteCar: (car) => dispatch(deleteCar(car)),
     fetchImages: () => dispatch(fetchAllImages()),
     createImage: (imgObj) => dispatch(createImage(imgObj)),
     createFollow: (id) => dispatch(createFollowed(id)),

@@ -53,6 +53,10 @@ const CarSchema = new Schema({
   deleted: {
     type: Boolean,
     default: false,
+  },
+  forSale: {
+    type: Boolean,
+    default: true,
   }
 });
 

@@ -4,17 +4,18 @@ import { withRouter } from "react-router-dom";
 
 import { updateCar, fetchOneCar } from "../../actions/car_actions";
 
-// import "./assets/car-form.scss";
+import "./car-form.scss";
 
 class CarEditForm extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = this.props.car;
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    console.log("this is the car", this.props.car);
     this.props.fetchCar(this.props.match.params.carId);
   }
 
@@ -38,27 +39,30 @@ class CarEditForm extends React.Component {
         <div className="car-form-container">
           <div className="car-form">
             <div className="car-form-title">Add a new car:</div>
+            <br />
             <form onSubmit={this.handleSubmit} className="car-form-fields">
               <div>
-                Make:
+                <h1>Make:</h1>
                 <input
                   type="text"
                   value={this.state.make}
                   onChange={this.update("make")}
+                  className="input-field"
                 />
               </div>
               <br />
               <div>
-                Model:
+                <h1>Model:</h1>
                 <input
                   type="text"
                   value={this.state.model}
                   onChange={this.update("model")}
+                  className="input-field"
                 />
               </div>
               <br />
               <div>
-                Year:
+                <h1>Year:</h1>
                 <input
                   type="number"
                   value={this.state.year}
@@ -67,16 +71,17 @@ class CarEditForm extends React.Component {
               </div>
               <br />
               <div>
-                Color:
+                <h1>Color:</h1>
                 <input
                   type="text"
                   value={this.state.color}
                   onChange={this.update("color")}
+                  className="input-field"
                 />
               </div>
               <br />
               <div>
-                Seats:
+                <h1>Seats:</h1>
                 <input
                   type="number"
                   value={this.state.seats}
@@ -85,50 +90,56 @@ class CarEditForm extends React.Component {
               </div>
               <br />
               <div>
-                Doors:
+                <h1>Doors:</h1>
                 <input
                   type="number"
                   value={this.state.doors}
                   onChange={this.update("doors")}
+                  className="input-field"
                 />
               </div>
               <br />
               <div>
-                Transmission:
+                <h1>Transmission:</h1>
                 <select
                   value={this.state.transmision}
                   onChange={this.update("transmission")}
+                  className="select-input"
                 >
-                  <option value="Automatic">Automatic</option>
+                  <option value="Automatic">Automatic&nbsp;&nbsp;&nbsp;</option>
                   <option value="Manual">Manual</option>
                   <option value="Electric">Electric</option>
                 </select>
               </div>
               <br />
               <div>
-                Location:
+                <h1>Location:</h1>
                 <select
                   value={this.state.location}
                   onChange={this.update("location")}
+                  className="select-input"
                 >
                   <option value="Chicago">Chicago</option>
                   <option value="New York">New York</option>
                   <option value="San Francisco">San Francisco</option>
                   <option value="Seattle">Seattle</option>
-                  <option value="Washington D.C.">Washington D.C.</option>
+                  <option value="Washington D.C.">
+                    Washington D.C.&nbsp;&nbsp;&nbsp;
+                  </option>
                 </select>
               </div>
               <br />
               <div>
-                Price:
+                <h1>Price:</h1>
                 <input
                   type="number"
                   value={this.state.price}
                   onChange={this.update("price")}
+                  className="input-field"
                 />
               </div>
               <br />
-              <input type="submit" value="Submit" />
+              <button type="submit" value="Submit" className="car-form-submit" >Submit</button>
             </form>
           </div>
         </div>
@@ -138,6 +149,7 @@ class CarEditForm extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  // console.log("these are own props", ownProps.match.params.carId)
   return {
     car: state.entities.cars[ownProps.match.params.carId],
   };

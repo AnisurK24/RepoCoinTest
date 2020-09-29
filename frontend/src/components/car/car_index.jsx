@@ -6,35 +6,47 @@ import CarIndexItem from "./car_index_item";
 import {
   selectImagesForCar,
   selectOneImagesForCar,
+  selectCarsFromUser,
+  selectDeletedCars,
   selectCarsForUser,
 } from "../../reducers/selectors.js";
 
-// import "./car-index.scss";
+import "./car-index.scss";
 
 class CarIndex extends React.Component {
   componentDidMount() {
-    const {isAdmin} = this.props
     this.props.fetchImages();
-    this.props.fetchCars(isAdmin);
+    this.props.fetchCars();
   }
 
   render() {
-    let Allcars;
+    let carTitle;
+    let allCars;
+    let userCars;
     let {cars, userId} = this.props
 
-    if (this.props.location.pathname === "profile/cars") {
-      cars = selectCarsForUser(cars, userId);
-      console.log("profile cars", cars)
+      console.log("pathname", this.props);
+    if (this.props.location.pathname === "/profile/cars") {
+      carTitle = "Your cars";
+      userCars = selectCarsFromUser(cars, userId);
+    } else if (this.props.location.pathname === "/deleted/cars") {
+      carTitle = "Deleted cars";
+      userCars = selectDeletedCars(cars);
+      console.log("deleted cars", userCars)
+    } else {
+      carTitle = "Cars for Sale";
+      userCars = selectCarsForUser(cars, userId);
     }
 
-    if (this.props.cars.length === 0) {
+    if (userCars.length === 0) {
       return (
         <div>
           <p>There are no cars</p>
         </div>
       );
     } else {
-      Allcars = cars.map((car) => {
+      // console.log("user cars", userCars)
+      allCars = userCars.map((car) => {
         const images = selectImagesForCar(this.props.images, car);
 
         return (
@@ -50,8 +62,8 @@ class CarIndex extends React.Component {
     return (
       <div>
         <div className="car-index">
-          <div className="all-cars">All Cars</div>
-          <div className="car-index-container">{Allcars}</div>
+        <div className="all-cars">{carTitle}</div>
+          <div className="car-index-container">{allCars}</div>
         </div>
       </div>
     );
@@ -59,7 +71,7 @@ class CarIndex extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  let isAdmin = undefined
+  let isAdmin
   let userId;
     if (state.session.user) {
       isAdmin = state.session.user.isAdmin;
@@ -75,7 +87,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCars: (isAdmin) => dispatch(fetchCars(isAdmin)),
+    fetchCars: () => dispatch(fetchCars()),
     fetchImages: () => dispatch(fetchAllImages()),
   };
 };

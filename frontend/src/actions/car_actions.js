@@ -17,10 +17,10 @@ export const receiveOneCar = (car) => ({
   car,
 });
 
-export const removeOneCar = (res) => ({
-  type: REMOVE_ONE_CAR,
-  res,
-});
+// export const removeOneCar = (res) => ({
+//   type: REMOVE_ONE_CAR,
+//   res,
+// });
 
 export const receiveCarErrors = (err) => ({
   type: RECEIVE_CAR_ERRORS,
@@ -28,17 +28,16 @@ export const receiveCarErrors = (err) => ({
 });
 
 
-export const fetchCars = (isAdmin) => (dispatch) => {
-  console.log("is Admin", isAdmin)
-  CarApiUtil.getCars(isAdmin)
+export const fetchCars = () => (dispatch) => {
+  CarApiUtil.getCars()
     .then((cars) => {
       dispatch(receiveAllCars(cars));
     })
     .catch((err) => dispatch(receiveCarErrors(err)));
 };
 
-export const fetchOneCar = (id, isAdmin) => (dispatch) => {
-  CarApiUtil.getCar(id, isAdmin)
+export const fetchOneCar = (id) => (dispatch) => {
+  CarApiUtil.getCar(id)
     .then((car) => dispatch(receiveOneCar(car)))
     .catch((err) => dispatch(receiveCarErrors(err)));
 };
@@ -55,9 +54,9 @@ export const updateCar = (car) => (dispatch) => (
     .catch((err) => dispatch(receiveCarErrors(err)))
 );
 
-export const deleteCar = (id) => (dispatch) => {
-  return CarApiUtil.deleteCar(id)
-    .then((res) => dispatch(removeOneCar(res)))
+export const deleteCar = (car) => (dispatch) => {
+  return CarApiUtil.deleteCar(car)
+    .then((car) => dispatch(receiveOneCar(car)))
     .catch((err) => dispatch(receiveCarErrors(err)));
 };
 

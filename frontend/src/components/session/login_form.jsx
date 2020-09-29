@@ -19,8 +19,8 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     // this.renderErrors = this.renderErrors.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
+    this.handleAdmin = this.handleAdmin.bind(this);
   }
-
 
   // Handle field updates (called in the render method)
   update(field) {
@@ -70,6 +70,16 @@ class LoginForm extends React.Component {
       .then(this.props.closeModal);
   }
 
+  handleAdmin(e) {
+    e.preventDefault();
+    this.props
+      .login({
+        username: "adminuser",
+        password: "password",
+      })
+      .then(this.props.closeModal);
+  }
+
   componentWillUnmount() {
     this.props.clearErrors();
   }
@@ -110,9 +120,17 @@ class LoginForm extends React.Component {
           <button
             className="modal-button"
             id="login-modal-button"
-            onClick={this.handleDemo}
+            onClick={this.handleAdmin}
           >
             Admin Login
+          </button>
+          <br />
+          <button
+            className="modal-button"
+            id="login-modal-button"
+            onClick={this.handleDemo}
+          >
+            Demo Login
           </button>
           <br />
           <button

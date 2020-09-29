@@ -30,13 +30,39 @@ export const selectOneImagesForCar = (props, car) => {
   return res;
 };
 
+export const selectCarsFromUser = (props, user) => {
+  let res = [];
+  if (Object.keys(props).length === 0) {
+    return res;
+  }
+  Object.values(props).forEach((car) => {
+    if (car.user_id === user && car.deleted === false) {
+      res.push(car);
+    }
+  });
+  return res;
+};
+
 export const selectCarsForUser = (props, user) => {
   let res = [];
   if (Object.keys(props).length === 0) {
     return res;
   }
   Object.values(props).forEach((car) => {
-    if (car.user_id === user) {
+    if (car.user_id !== user && car.deleted === false) {
+      res.push(car);
+    }
+  });
+  return res;
+};
+
+export const selectDeletedCars = (props) => {
+  let res = [];
+  if (Object.keys(props).length === 0) {
+    return res;
+  }
+  Object.values(props).forEach((car) => {
+    if (car.deleted === true) {
       res.push(car);
     }
   });

@@ -28,33 +28,44 @@ class NavBar extends React.Component {
   // Selectively render links dependent on whether the user is logged in
   getLinks() {
     if (this.props.loggedIn) {
-      return (
-        <div className="nav-bar-logged-in">
-          <div className="nav-bar-form-logo-icon">
-            <Link to="/">
-              <img src={logo} alt="logo" />
-            </Link>
-          </div>
+      if (this.props.isAdmin) {
+        return (
           <div>
-            <Search />
+            <Link to={"/deleted/cars"}><button className="navbutton"><p>Deleted Cars</p></button></Link>&nbsp;&nbsp;
+            <Link to={"/profile"}><button className="navbutton"><p>Profile</p></button></Link>&nbsp;&nbsp;
+            <button className="navbutton" onClick={this.logoutUser}><p>Log Out</p></button>
           </div>
+        )
+      } else {
+        return (
+        // <div className="nav-bar-logged-in">
+        //   <div className="nav-bar-form-logo-icon">
+        //     <Link to="/">
+        //       <img src={logo} alt="logo" />
+        //     </Link>
+        //   </div>
+        //   <div>
+        //     <Search />
+        //   </div>
           <div>
             <Link to={"/profile"}><button className="navbutton"><p>Profile</p></button></Link>&nbsp;&nbsp;
             <button className="navbutton" onClick={this.logoutUser}><p>Log Out</p></button>
           </div>
-        </div>
-      );
+        // </div>
+        );
+      }
     } else {
       return (
-        <div className="nav-bar-logged-out">
-          <div className="nav-bar-form-logo-icon">
-            <Link to="/">
-              <img src={logo} alt="logo" />
-            </Link>
-          </div>
+        // <div className="nav-bar-logged-out">
+        //   <div className="nav-bar-form-logo-icon">
+        //     <Link to="/">
+        //       <img src={logo} alt="logo" />
+        //     </Link>
+        //   </div>
 
-          <Search />
+        //   <Search />
           <div>
+            {/* <Link to={"/cars"}><button className="navbutton"><p>All Cars</p></button></Link>&nbsp;&nbsp; */}
             <button
               className="navbutton"
               onClick={() => this.props.openModal("signup")}
@@ -67,8 +78,8 @@ class NavBar extends React.Component {
             >
               <p>Log In</p>
             </button>
-          </div>
-        </div>
+           </div>
+        // </div>
       );
     }
   }
@@ -76,16 +87,37 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="nav-bar-container">
-          {this.getLinks()}
+        <div className="nav-bar-logged-in">
+          <div className="nav-bar-form-logo-icon">
+            <Link to="/">
+              <img src={logo} alt="logo" />
+            </Link>
+          </div>
+          <div>
+            <Search />
+          </div>
+          <div>{this.getLinks()}</div>
+        </div>
       </div>
     );
   }
 
 }
 
-const mapStateToProps = (state) => ({
-  loggedIn: state.session.isAuthenticated,
-});
+const mapStateToProps = (state) => {
+  if (state.session.user) {
+    return {
+      loggedIn: state.session.isAuthenticated,
+      isAdmin: state.session.user.isAdmin
+    }
+  } else {
+    return {
+      loggedIn: state.session.isAuthenticated,
+    }
+  }
+  // console.log(state)
+  // isAdmin: state.session.user.isAdmin
+};
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logout()),

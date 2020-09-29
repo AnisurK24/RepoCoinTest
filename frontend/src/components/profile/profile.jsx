@@ -10,7 +10,7 @@ import {
   selectOneImagesForCar,
 } from "../../reducers/selectors.js";
 
-// import "./assets/profile.css";
+import "./profile.scss";
 import noImage from "../../assets/no-image.png";
 
 class Profile extends React.Component {
@@ -26,11 +26,11 @@ class Profile extends React.Component {
   }
 
   toggleCar() {
-    this.setState({ addCar: !this.state.addCar });
+    this.setState({ addCar: !this.state.addCar, addFollowed: !this.state.addFollowed });
   }
 
   toggleFollowed() {
-    this.setState({ addFollowed: !this.state.addFollowed });
+    this.setState({ addFollowed: !this.state.addFollowed, addCar: !this.state.addCar });
   }
 
   componentDidMount() {
@@ -46,7 +46,7 @@ class Profile extends React.Component {
         return (
           <li className="user-car-li" key={car._id}>
             <Link to={`/cars/${car._id}`}>
-              <p className="user-car-name">{car.name}</p>
+              <p className="user-car-title">{car.title}</p>
             </Link>
             <br />
             <Link to={`/cars/${car._id}`}>
@@ -73,7 +73,7 @@ class Profile extends React.Component {
         return (
           <li className="user-car-li" key={car.id}>
             <Link to={`/cars/${car.id}`}>
-              <p className="user-car-name">{car.name}</p>
+              <p className="user-car-title">{car.title}</p>
             </Link>
             <br />
             <Link to={`/cars/${car.id}`}>
@@ -116,9 +116,9 @@ class Profile extends React.Component {
               <div className="profile-btn-container">
                 <div className="profile-buttons">
                   <div className="profile-btn-top">
-                    <button className="all-cars">
+                    {/* <button className="all-cars">
                       <Link to="/cars">All cars!</Link>
-                    </button>
+                    </button> */}
                   </div>
                   <br />
                   <div className="profile-btn-upper">
@@ -153,7 +153,7 @@ class Profile extends React.Component {
             <div className="profile-right">
               <div className={myCar.join(" ")}>
                 <div className="profile-right-header">
-                  <h2>Your Car:</h2>
+                  <h2>Your Cars:</h2>
                 </div>
                 <ul>{userCarsDisplay}</ul>
               </div>

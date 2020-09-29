@@ -1,4 +1,4 @@
-const formatCars = (carsArr, isAdmin) => {
+const formatCars = (carsArr) => {
   const cars = {};
   carsArr.forEach((car) => {
     const carData = {
@@ -16,16 +16,15 @@ const formatCars = (carsArr, isAdmin) => {
       price: car.price,
       date: car.date,
       deleted: car.deleted,
+      forSale: car.forSale,
     };
-    if (isAdmin || !car.deleted) {
       cars[car.id] = carData;
-    }
   });
 
   return cars;
 };
 
-const formatCar = (car, isAdmin) => {
+const formatCar = (car) => {
   const carData = {
     id: car._id,
     user_id: car.user,
@@ -41,10 +40,9 @@ const formatCar = (car, isAdmin) => {
     price: car.price,
     date: car.date,
     deleted: car.deleted,
+    forSale: car.forSale,
   };
-  if (isAdmin || !car.deleted) {
     return carData;
-  }
 };
 
 module.exports = { formatCars, formatCar };

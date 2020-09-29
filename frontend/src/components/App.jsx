@@ -24,9 +24,10 @@ const App = () => (
       <Route exact path="/cars" component={CarsIndex} />
       <Route exact path='/cars/:carId' component={CarShow} />
       <Route exact path="/profile" component={Profile} />
-      <Route exact path="/profile/cars" component={CarsIndex} />
+      <ProtectedRoute exact path="/profile/cars" component={CarsIndex} />
+      <ProtectedRoute exact path="/deleted/cars" component={CarsIndex} />
       <ProtectedRoute exact path="/profile/cars/new" component={CarCreateForm} />
-      <Route exact path='/cars/:carId/edit' component={CarEditForm} />
+      <ProtectedRoute exact path='/cars/:carId/edit' component={CarEditForm} />
     </Switch>
   </div>
 );

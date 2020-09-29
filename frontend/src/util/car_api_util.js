@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const getCars = (isAdmin) => {
-  return axios.get("/api/cars", isAdmin);
+export const getCars = () => {
+  return axios.get("/api/cars");
 };
 
-export const getCar = (id, isAdmin) => {
-  return axios.get(`/api/cars/${id}`, isAdmin);
+export const getCar = (id) => {
+  return axios.get(`/api/cars/${id}`);
 };
 
 export const createCar = (car) => {
@@ -16,8 +16,8 @@ export const updateCar = (car) => {
   return axios.patch(`/api/cars/${car.id}`, car);
 };
 
-export const deleteCar = (id) => {
-  return axios.delete(`/api/cars/${id}`);
+export const deleteCar = (car) => {
+  return axios.patch(`/api/cars/delete/${car.id}`, car);
 };
 
 // SEARCH AXIOS REQS
